@@ -1,0 +1,26 @@
+package moe.evil.hyperstatus.xposed.model
+
+enum class Rat(val cli: String, val iconKey: String, val dataTypeIcon: String, val label: String) {
+    G("g", "1", "stat_signal_connected_g_lte_big", "G"),
+    TWO_G("2g", "4", "stat_signal_connected_2g_lte_big", "2G"),
+    E("e", "2", "stat_signal_connected_e_lte_big", "E"),
+    THREE_G("3g", "5", "stat_signal_connected_3g_lte_big", "3G"),
+    THREE_G_PLUS("3g+", "5", "stat_signal_connected_3gp_lte_big", "3G+"),
+    H("h", "8", "stat_signal_connected_h_lte_big", "H"),
+    H_PLUS("h+", "15", "stat_signal_connected_h_p_lte_big", "H+"),
+    FOUR_G("4g", "13", "stat_signal_connected_4g_lte_big", "4G"),
+    FOUR_G_PLUS("4g+", "19", "stat_signal_connected_4gp_lte_big", "4G+"),
+    FOUR_DOT_FIVE_G("4.5g", "13_4_DOT_5G", "stat_signal_connected_4_5g_lte_big", "4.5G"),
+    FOUR_DOT_FIVE_G_PLUS("4.5g+", "13_4_DOT_5G_PLUS", "stat_signal_connected_4_5g_plus", "4.5G+"),
+    LTE("lte", "13", "stat_signal_connected_lte_big", "LTE"),
+    LTE_PLUS("lte+", "13_CA", "stat_signal_connected_lte_plus_big", "LTE+"),
+    LTE_CA_5G_E("5ge-lte", "13_CA_Plus", "stat_signal_connected_5g", "5G"),
+    NR("5g", "20_Plus", "stat_signal_connected_5g", "5G"),
+    NR_SA("5g-sa", "20", "stat_signal_connected_5g", "5G"),
+    FIVE_G_UC("5g-uc", "20_UC", "stat_sys_data_fully_connected_5g_uc", "5G UC"),
+    FIVE_G_UWB("5g-uwb", "20_5GUWB", "stat_sys_data_fully_connected_5g_uwb_global", "5G UWB"),
+    FIVE_G_PLUS("5g+", "20_5GPlus", "stat_sys_data_fully_connected_5g_plus", "5G+"),
+    FIVE_G_PLUS_PLUS("5g++", "20_5GPlusPlus", "stat_sys_data_fully_connected_5g_plus_plus", "5G++"),
+    FIVE_G_E("5ge", "20_5GE", "stat_sys_data_fully_connected_5g_e", "5GE"),
+    FIVE_G_A("5ga", "20_5GA", "stat_sys_data_fully_connected_5g_a", "5GA"),
+}

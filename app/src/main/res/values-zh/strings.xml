@@ -1,0 +1,14 @@
+<resources>
+    <string name="status_activated">已激活</string>
+    <string name="status_not_activated">未激活</string>
+    <string name="status_not_activated_summary">请在 Xposed 管理器中启用本模块并重启系统界面</string>
+    <string name="status_version">版本：%1$s</string>
+    <string name="status_framework">%1$s · API %2$d</string>
+    <string name="hide_launcher_icon">隐藏桌面图标</string>
+    <string name="log_level">日志等级</string>
+    <string name="log_level_summary">即时应用到系统界面</string>
+    <string name="dedupe_errors">守卫错误日志去重</string>
+    <string name="dedupe_errors_summary">同一守卫内出错位置只上报一次</string>
+    <string name="debug_channel">调试通道</string>
+    <string name="debug_channel_summary">系统界面内的广播命令行与 dump 探针，重启系统界面后生效</string>
+</resources>
