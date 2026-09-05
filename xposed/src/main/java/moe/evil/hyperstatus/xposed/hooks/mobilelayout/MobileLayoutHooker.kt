@@ -31,6 +31,7 @@ object MobileLayoutHooker : Hooker() {
         val roaming = host.hostId("id", "mobile_roaming")
         val large = host.hostId("id", "mobile_roaming_large")
         val space = host.hostId("id", "mobile_roaming_space")
+        val real = host.hostId("id", "mobile_combo_real")
         val softRoma = host.hostId("drawable", "stat_signal_soft_roma_lte")
         val roam = modules.moduleDrawable("stat_sys_data_connected_roam_tint")
         val cache = DrawableCache(modules)
@@ -44,6 +45,7 @@ object MobileLayoutHooker : Hooker() {
         val roaming: ImageView? = root.findViewById(b.roaming)
         val large: ImageView? = root.findViewById(b.large)
         val space: View? = root.findViewById(b.space)
+        val real: View? = root.findViewById(b.real)
 
         @Volatile
         var roamRes = 0
@@ -85,7 +87,10 @@ object MobileLayoutHooker : Hooker() {
                 chain.proceed().also {
                     inoutGuard.safe {
                         val b = binding
-                        groupOf(chain.getArg(0) as ImageView, b)?.let { applyInout(it, b) }
+                        groupOf(chain.getArg(0) as ImageView, b)?.let {
+                            applyInout(it, b)
+                            applyInset(it, b)
+                        }
                     }
                 }
             }
@@ -101,6 +106,7 @@ object MobileLayoutHooker : Hooker() {
                         val group = groupOf(chain.getArg(0) as ImageView, b) ?: return@safe
                         group.roamRes = chain.getArg(2) as Int
                         applyRoaming(group, b)
+                        applyInset(group, b)
                     }
                 }
             }
@@ -133,6 +139,7 @@ object MobileLayoutHooker : Hooker() {
                     applyGuard.safe {
                         applyInout(group, b)
                         applyRoaming(group, b)
+                        applyInset(group, b)
                     }
                 }
             }
@@ -141,7 +148,10 @@ object MobileLayoutHooker : Hooker() {
 
         ctx.debug?.probe(id) {
             buildString {
-                appendLine("enabled=${state.enabled} inoutDx=${state.inoutDx}dp hyperInset=${binding.hyperInset}")
+                appendLine(
+                    "enabled=${state.enabled} inoutDx=${state.inoutDx}dp " +
+                            "inset=${state.inset}dp hyperInset=${binding.hyperInset}"
+                )
                 appendLine(hitsSummary())
                 val live = synchronized(groups) { groups.values.toList() }
                 appendLine("Groups (${live.size}):  ")
@@ -152,6 +162,7 @@ object MobileLayoutHooker : Hooker() {
                                 "signal=${g.signal?.drawable?.intrinsicWidth}px " +
                                 "roaming=${g.roaming?.visibility} space=${g.space?.visibility}:${g.space?.width} " +
                                 "large=${g.large?.visibility}:${g.large?.width}x${g.large?.height} " +
+                                "realPadStart=${g.real?.paddingStart} " +
                                 "inout=${g.inout?.visibility}:${g.inout?.width}x${g.inout?.height} " +
                                 "gravity=${lp?.gravity} marginEnd=${lp?.marginEnd}"
                     )
@@ -164,6 +175,14 @@ object MobileLayoutHooker : Hooker() {
     private fun groupOf(view: View, b: Binding): Group? =
         view.ancestorValue { it.takeIf { root -> root.id == b.group } }
             ?.let { root -> groups.getOrPut(root) { Group(root, b) } }
+
+    private fun applyInset(group: Group, b: Binding) {
+        val real = group.real ?: return
+        val pad =
+            if (state.enabled && group.roamRes == 0) (state.inset * b.density).roundToInt() else 0
+        if (real.paddingStart == pad) return
+        real.setPaddingRelative(pad, real.paddingTop, real.paddingEnd, real.paddingBottom)
+    }
 
     private fun applyInout(group: Group, b: Binding) {
         val view = group.inout ?: return

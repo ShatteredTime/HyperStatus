@@ -1,5 +1,7 @@
 package moe.evil.hyperstatus.xposed.hooks.mobilelayout
 
+private const val GROUP_INSET_DP = 1.7f
+
 class MobileLayoutState {
     @Volatile
     var enabled = true
@@ -7,6 +9,10 @@ class MobileLayoutState {
 
     @Volatile
     var inoutDx = 0f
+        private set
+
+    @Volatile
+    var inset = GROUP_INSET_DP
         private set
 
     @Volatile
@@ -22,9 +28,15 @@ class MobileLayoutState {
         onChange?.invoke()
     }
 
+    fun pad(dp: Float) {
+        inset = dp
+        onChange?.invoke()
+    }
+
     fun reset() {
         enabled = true
         inoutDx = 0f
+        inset = GROUP_INSET_DP
         onChange?.invoke()
     }
 }

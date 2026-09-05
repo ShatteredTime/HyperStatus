@@ -10,6 +10,7 @@ class LayoutCommand(private val state: MobileLayoutState) : CoreCliktCommand(nam
     private val swap by option().switch("--on" to true, "--off" to false)
     private val reset by option("--reset").flag()
     private val inoutDx by option("--inout-dx").float()
+    private val inset by option("--inset").float()
 
     override fun run() {
         if (reset) {
@@ -18,5 +19,6 @@ class LayoutCommand(private val state: MobileLayoutState) : CoreCliktCommand(nam
         }
         swap?.let(state::enable)
         inoutDx?.let(state::shift)
+        inset?.let(state::pad)
     }
 }
