@@ -5,7 +5,6 @@
 -keepnames class moe.evil.hyperstatus.shared.** { *; }
 
 -keep class io.github.libxposed.service.** { *; }
--keep class org.lsposed.hiddenapibypass.** { *; }
 
 -dontwarn io.github.libxposed.api.**
 -dontwarn com.android.internal.**

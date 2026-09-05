@@ -38,5 +38,4 @@ dependencies {
     implementation(libs.kavaref.extension)
     implementation(libs.kavaref.android)
     debugImplementation(libs.clikt.core)
-    implementation(libs.hiddenapibypass)
 }

@@ -23,7 +23,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.libxposed.service.XposedService
-import moe.evil.hyperstatus.BuildConfig
 import moe.evil.hyperstatus.R
 import top.yukonga.miuix.kmp.basic.BasicComponent
 import top.yukonga.miuix.kmp.basic.Card
@@ -103,10 +102,7 @@ fun StatusCard(service: XposedService?) {
                     )
                     Spacer(Modifier.height(1.dp))
                     Text(
-                        text = stringResource(
-                            R.string.status_version,
-                            "${BuildConfig.VERSION_CODE} (${BuildConfig.BUILD_TYPE.uppercase()})",
-                        ),
+                        text = stringResource(R.string.status_version, VERSION_LABEL),
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Medium,
                     )

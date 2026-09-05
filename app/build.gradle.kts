@@ -13,8 +13,8 @@ android {
         applicationId = "moe.evil.hyperstatus"
         minSdk = 36
         targetSdk = 37
-        versionCode = 2
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "1.0.3"
 
         ndk {
             abiFilters += "arm64-v8a"
@@ -65,5 +65,6 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.miuix.ui)
+    implementation(libs.miuix.icons)
     implementation(libs.miuix.preference)
 }

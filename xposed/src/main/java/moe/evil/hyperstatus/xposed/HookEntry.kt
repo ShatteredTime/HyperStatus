@@ -7,7 +7,6 @@ import android.content.SharedPreferences
 import com.highcapable.kavaref.extension.classOf
 import com.highcapable.kavaref.extension.toClass
 import io.github.libxposed.api.XposedModule
-import io.github.libxposed.api.XposedModuleInterface.ModuleLoadedParam
 import io.github.libxposed.api.XposedModuleInterface.PackageLoadedParam
 import io.github.libxposed.api.XposedModuleInterface.PackageReadyParam
 import moe.evil.hyperstatus.shared.HOST_SYSTEMUI
@@ -31,7 +30,6 @@ import moe.evil.hyperstatus.xposed.utils.HostClassLoaderBridge
 import moe.evil.hyperstatus.xposed.utils.XposedLogSink
 import moe.evil.hyperstatus.xposed.utils.hostMethod
 import moe.evil.hyperstatus.xposed.utils.safeIntercept
-import org.lsposed.hiddenapibypass.HiddenApiBypass
 
 class HookEntry : XposedModule() {
     private val log = HLog.of<HookEntry>()
@@ -52,10 +50,6 @@ class HookEntry : XposedModule() {
 
     @Volatile
     private var hooked = false
-
-    override fun onModuleLoaded(param: ModuleLoadedParam) {
-        HiddenApiBypass.setHiddenApiExemptions("L")
-    }
 
     override fun onPackageLoaded(param: PackageLoadedParam) {
         if (param.packageName == HOST_SYSTEMUI && param.isFirstPackage) {

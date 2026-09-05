@@ -1,6 +1,8 @@
 package moe.evil.hyperstatus.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
@@ -19,14 +21,25 @@ import top.yukonga.miuix.kmp.utils.overScrollVertical
 import top.yukonga.miuix.kmp.utils.scrollEndHaptic
 
 @Composable
-fun HomeScreen(service: XposedService?) {
+fun HomeScreen(service: XposedService?, onAboutClick: () -> Unit) {
     val scrollBehavior = MiuixScrollBehavior()
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = stringResource(R.string.app_name),
-                scrollBehavior = scrollBehavior,
-            )
+            Box {
+                TopAppBar(
+                    title = stringResource(R.string.app_name),
+                    scrollBehavior = scrollBehavior,
+                )
+                Box(
+                    modifier = Modifier
+                        .matchParentSize()
+                        .clickable(
+                            interactionSource = null,
+                            indication = null,
+                            onClick = onAboutClick,
+                        ),
+                )
+            }
         },
     ) { innerPadding ->
         LazyColumn(
