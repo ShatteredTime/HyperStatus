@@ -261,8 +261,8 @@ object WifiIconHooker : Hooker() {
                 )]
             )
         )
+        val text = badge?.text?.takeIf { validated }
         group.left?.let { left ->
-            val text = badge?.text
             if (text == null) {
                 left.visibility = View.GONE
             } else {
@@ -286,7 +286,9 @@ object WifiIconHooker : Hooker() {
                 inout.visibility = View.GONE
             } else {
                 inout.setImageDrawable(arrow)
-                inout.place((if (badge?.text != null) Gravity.LEFT else Gravity.RIGHT) or Gravity.BOTTOM)
+                val gravity =
+                    if (text != null || family == WifiFamily.UNAVAILABLE) Gravity.LEFT else Gravity.RIGHT
+                inout.place(gravity or Gravity.BOTTOM)
                 inout.visibility = View.VISIBLE
             }
         }

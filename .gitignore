@@ -3,6 +3,7 @@
 /local.properties
 /.idea
 /.kotlin
+/.tmp
 .DS_Store
 build/
 /app/release
